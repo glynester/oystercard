@@ -40,17 +40,17 @@ describe Journey do
     it 'charges MINIMUM_FARE for a complete trip' do
       test_journey = described_class.new("station")
       test_journey.end("other_station")
-      expect(test_journey.fare).to eq(Oystercard::MINIMUM_FARE)
+      expect(test_journey.fare).to eq(Journey::MINIMUM_FARE)
     end
 
     it 'charges PENALTY_FARE for not touching out of previous trip' do
       described_class.new(entry_station = "station")
-      expect(subject.fare).to eq(Oystercard::PENALTY_FARE)
+      expect(subject.fare).to eq(Journey::PENALTY_FARE)
     end
 
     it 'charges PENALTY_FARE for not touching in' do
       described_class.new
-      expect(subject.fare).to eq(Oystercard::PENALTY_FARE)
+      expect(subject.fare).to eq(Journey::PENALTY_FARE)
     end
   end
 end

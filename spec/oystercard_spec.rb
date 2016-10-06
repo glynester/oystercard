@@ -54,7 +54,7 @@ describe Oystercard do
     end
 
     it 'deducts the correct amount from card' do
-      expect{ subject.touch_out(exit_station) }.to change{ subject.balance }.by (-described_class::MINIMUM_FARE)
+      expect{ subject.touch_out(exit_station) }.to change{ subject.balance }.by (-Journey::MINIMUM_FARE)
     end
 
     it 'allows you to touch out without touching in and saves second station' do
