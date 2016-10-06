@@ -53,8 +53,8 @@ describe Oystercard do
       subject.touch_out(exit_station)
     end
 
-    it 'deducts the correct amount from card' do
-      expect{ subject.touch_out(exit_station) }.to change{ subject.balance }.by (-Journey::MINIMUM_FARE)
+    it 'deducts penalty fare from card' do
+      expect{ subject.touch_out(exit_station) }.to change{ subject.balance }.by (-Journey::PENALTY_FARE)
     end
 
     it 'allows you to touch out without touching in and saves second station' do

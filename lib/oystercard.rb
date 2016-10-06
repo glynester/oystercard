@@ -22,7 +22,7 @@ class Oystercard
       if (!@journey_log.empty? && !@journey_log.last.complete?)
         @journey_log.last.end(nil)
         deduct(@journey_log.last.fare)
-      else
+      end
         @journey_log << Journey.new(entry_s)
   end
 
