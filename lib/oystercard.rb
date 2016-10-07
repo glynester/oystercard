@@ -1,5 +1,6 @@
 
 require_relative 'journey'
+require_relative 'journey_log'
 
 class Oystercard
 
@@ -7,9 +8,9 @@ class Oystercard
 
   MAXIMUM_BALANCE = 90
 
-  def initialize
+  def initialize (journey_log = JourneyLog.new)
     @balance = 0
-    @journey_log = []
+    @journey_log = journey_log
   end
 
   def top_up(money)
@@ -17,30 +18,19 @@ class Oystercard
     @balance += money
   end
 
-  def touch_in(entry_s)
+  def touch_in(station)
     fail "Insufficient balance" if balance < Journey::MINIMUM_FARE
-      if (!@journey_log.empty? && !@journey_log.last.complete?)
-        @journey_log.last.end(nil)
-        deduct(@journey_log.last.fare)
-      end
-        @journey_log << Journey.new(entry_s)
+    journey_log.start(station)
   end
 
-  def touch_out(exit_s)
-    if @journey_log.last.complete?
-       journey = Journey.new
-       @journey_log << journey.end(exit_s)
-    else
-      @journey_log.last.end(exit_s)
-    end
-    deduct(@journey_log.last.fare)
-  end
-
-  def journey_history
-    @journey_log
+  def touch_out(station)
+    journey_log.finish(station)
+    deduct(journey_log.journeys.last.fare)
   end
 
   private
+
+  attr_reader :journey_log
 
   def deduct(money)
     @balance -= money

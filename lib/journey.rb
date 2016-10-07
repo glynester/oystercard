@@ -10,7 +10,7 @@ class Journey
     @complete = false
   end
 
-  def end(exit_station)
+  def end(exit_station = nil)
     @exit_station = exit_station
     @complete = true
     self
