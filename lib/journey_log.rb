@@ -3,17 +3,20 @@ require_relative 'journey'
 
 class JourneyLog
   
-  def initialize(station)
+  attr_reader :journey
+  
+  def initialize
     @journeys = []
-    @journey = station
+    #@journey = station                   # What should be here????????????
+    #@journey = Journey.new(station)
   end
   
   def start_journey(station)
     @journey = Journey.new(station)
   end
     
-  def end_journey(station)
-    @journey.finish(station)
+  def finish_journey(station)
+    @journey.finish(station)            #problem here!!!!!!!!!!!!!!!
   end
     
   def record(journey)
